@@ -47,6 +47,8 @@ services:
       - ./backend/:/code/
     ports:
       - 5050:5050
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
 
   redis:
     image: redis:latest@sha256:a7cee7c8178ff9b5297cb109e6240f5072cdaaafd775ce6b586c3c704b06458e
@@ -68,6 +70,9 @@ services:
     restart: always
     depends_on:
       - redis
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+
 
   beat:
     image: stangirard/quivr-backend-prebuilt:latest
