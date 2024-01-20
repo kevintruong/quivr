@@ -105,3 +105,28 @@ services:
       - beat
     ports:
       - 5555:5555
+
+  ollama:
+    hostname: ollama
+    container_name: ollama
+    build:
+      context: volumes/ollama
+      dockerfile: Dockerfile
+    #    image: ollama/ollama:latest
+    expose:
+      - 11434
+    volumes:
+      - /home/kevin/.ollama:/root/.ollama
+    environment:
+      - gpus=all
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [ gpu ]
+
+volumes:
+  ollama_data:
+    driver: local
